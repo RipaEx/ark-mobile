@@ -1,5 +1,5 @@
 {
-  "name": "ark-mobile",
+  "name": "ripa-mobile",
   "version": "1.1.2",
   "author": {
     "name": "Lucio Rubens",
@@ -11,15 +11,23 @@
       "name": "Alex Barnsley",
       "email": "alex@ark.io",
       "url": "https://github.com/alexbarnsley"
+    },
+    {
+      "name": "Bledar Gogaj",
+      "email": "gobled@gmail.com",
+      "url": "https://github.com/gobled"
     }
   ],
-  "homepage": "https://github.com/ArkEcosystem/ark-mobile#readme",
+  "homepage": "https://github.com/RipaEx/ripa-mobile#readme",
   "bugs": {
-    "url": "https://github.com/ArkEcosystem/ark-mobile/issues"
+    "url": "https://github.com/RipaEx/ripa-mobile/issues"
   },
   "license": "MIT",
   "private": true,
   "scripts": {
+    "ionic:build:before": "node ./ripa/ark-ts/copy_src_config_index.js",
+    "ionic:watch:before": "node ./ripa_customize/ark-ts/copy_src_config_index.js",
+    "ionic:serve:before": "node ./ripa_customize/ark-ts/copy_src_config_index.js",
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "lint": "ionic-app-scripts lint",
@@ -64,6 +72,7 @@
     "angular2-qrcode": "^2.0.1",
     "ark-ts": "^0.3.7",
     "arkjs": "github:arkecosystem/ark-js#master",
+    "ripa-js": "github:ripaex/ripa-js#master"
     "bcryptjs": "^2.4.3",
     "bignumber.js": "^6.0.0",
     "bip38": "^2.0.2",
