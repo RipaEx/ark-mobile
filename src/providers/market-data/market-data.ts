@@ -68,6 +68,7 @@ export class MarketDataProvider {
   }
 
   private fetchTicker(): Observable<model.MarketTicker> {
+    
     const url = `${constants.API_MARKET_URL}/${constants.API_MARKET_TICKER_ENDPOINT}`;
 
     const currenciesList = model.CURRENCIES_LIST.map((currency) => {

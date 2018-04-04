@@ -23,7 +23,7 @@ export const STORAGE_ACTIVE_PROFILE = 'active_profile';
 export const STORAGE_INTROSEEN = 'intro';
 export const STORAGE_DELEGATES = 'delegates';
 export const STORAGE_FEES = 'fees';
-export const STORAGE_MASTERPASSWORD = 'masterpassword';
+export const STORAGE_MASTERPASSWORD = 'Ripamasterpassword';
 export const STORAGE_AUTH_UNLOCK_TIMESTAMP = 'auth_timestamp';
 export const STORAGE_AUTH_ATTEMPTS = 'auth_attempts';
 
@@ -32,9 +32,9 @@ export const TOAST_HIDE_DELAY = 3000;
 export const TOAST_POSITION = 'bottom';
 
 // COIN MARKETCAP API
-export const API_MARKET_URL = 'https://min-api.cryptocompare.com';
-export const API_MARKET_HISTORY_ENDPOINT = 'data/histoday?fsym=ARK&allData=true&tsym=';
-export const API_MARKET_TICKER_ENDPOINT = 'data/pricemultifull?fsyms=ARK&tsyms=';
+export const API_MARKET_URL = '';
+export const API_MARKET_HISTORY_ENDPOINT = '';
+export const API_MARKET_TICKER_ENDPOINT = '';
 
 // GENERIC
 export const VIBRATION_TIME_MS = 30;
@@ -46,6 +46,6 @@ export const PIN_ATTEMPTS_LIMIT = 3;
 export const PIN_ATTEMPTS_TIMEOUT_MILLISECONDS = 30 * 1000;
 
 // ARK
-export const PRIVACY_POLICY_URL = 'https://ark.io/PrivacyPolicy.txt';
-export const URI_QRCODE_SCHEME_PREFIX = 'ark:';
+export const PRIVACY_POLICY_URL = 'https://ripaex.io/PrivacyPolicy.txt';
+export const URI_QRCODE_SCHEME_PREFIX = 'ripa:';
 export const NUM_ACTIVE_DELEGATES = 51;
