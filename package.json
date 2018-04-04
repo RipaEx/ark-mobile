@@ -25,7 +25,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "ionic:build:before": "node ./ripa/ark-ts/copy_src_config_index.js",
+    "ionic:build:before": "node ./ripa_customize/ark-ts/copy_src_config_index.js",
     "ionic:watch:before": "node ./ripa_customize/ark-ts/copy_src_config_index.js",
     "ionic:serve:before": "node ./ripa_customize/ark-ts/copy_src_config_index.js",
     "clean": "ionic-app-scripts clean",
