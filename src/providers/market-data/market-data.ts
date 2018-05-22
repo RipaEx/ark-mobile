@@ -10,6 +10,7 @@ import 'rxjs/add/operator/mergeMap';
 
 import { StorageProvider } from '@providers/storage/storage';
 import { SettingsDataProvider } from '@providers/settings-data/settings-data';
+import { NetworkProvider } from '@providers/network/network';
 
 import * as model from '@models/market';
 import { UserSettings } from '@models/settings';
@@ -29,6 +30,7 @@ export class MarketDataProvider {
     private http: HttpClient,
     private storageProvider: StorageProvider,
     private settingsDataProvider: SettingsDataProvider,
+    private networkProvider: NetworkProvider
   ) {
     this.loadData();
     this.fetchTicker();
@@ -62,31 +64,44 @@ export class MarketDataProvider {
   }
 
   refreshTicker(): void {
+    
     this.fetchTicker().subscribe((ticker) => {
       this.onUpdateTicker$.next(ticker);
     });
   }
 
   private fetchTicker(): Observable<model.MarketTicker> {
-    
-    const url = `${constants.API_MARKET_URL}/${constants.API_MARKET_TICKER_ENDPOINT}`;
+    const currentNetwork = this.networkProvider.currentNetwork;
+   
+      const url = `${constants.API_MARKET_URL}/${constants.API_MARKET_TICKER_ENDPOINT}` + currentNetwork.token;
 
-    const currenciesList = model.CURRENCIES_LIST.map((currency) => {
-      return currency.code.toUpperCase();
-    }).join(',');
+      const currenciesList = model.CURRENCIES_LIST.map((currency) => {
+        return currency.code.toUpperCase();
+      }).join(',');
 
-    return this.http.get(url + currenciesList).map((response) => {
-      const json = response['RAW']['ARK'];
-      const tickerObject = {
-        symbol: json['BTC']['FROMSYMBOL'],
-        currencies: json,
-      };
+      return this.http.get(url + '&tsyms=' + currenciesList).map((response) => {
+         try {
+          const json = response['RAW'][currentNetwork.token];
+          const tickerObject = {
+            symbol: json['BTC']['FROMSYMBOL'],
+            currencies: json,
+          };
 
-      this.marketTicker = new model.MarketTicker().deserialize(tickerObject);
-      this.storageProvider.set(constants.STORAGE_MARKET_TICKER, tickerObject);
-
-      return this.marketTicker;
-    });
+          this.marketTicker = new model.MarketTicker().deserialize(tickerObject);
+          this.storageProvider.set(constants.STORAGE_MARKET_TICKER, tickerObject);
+          return this.marketTicker;
+        } catch (e) {
+          const json = {"BTC":{"TYPE":"5","MARKET":"CCCAGG","FROMSYMBOL":currentNetwork.token,"TOSYMBOL":"BTC","FLAGS":"1","PRICE":0.000015,"LASTUPDATE":1522965612,"LASTVOLUME":0,"LASTVOLUMETO":0,"LASTTRADEID":"15229656120001","VOLUMEDAY":0,"VOLUMEDAYTO":0,"VOLUME24HOUR":0,"VOLUME24HOURTO":0,"OPENDAY":0.000015,"HIGHDAY":0.000015,"LOWDAY":0.000015,"OPEN24HOUR":0.000015,"HIGH24HOUR":0.000015,"LOW24HOUR":0.000015,"LASTMARKET":"NaN","CHANGE24HOUR":0,"CHANGEPCT24HOUR":0,"CHANGEDAY":0,"CHANGEPCTDAY":0,"SUPPLY":0,"MKTCAP":0,"TOTALVOLUME24H":0,"TOTALVOLUME24HTO":0}};
+          const tickerObject = {
+            symbol: json['BTC']['FROMSYMBOL'],
+            currencies: json,
+          };
+          this.marketTicker = new model.MarketTicker().deserialize(tickerObject);
+          this.storageProvider.set(constants.STORAGE_MARKET_TICKER, tickerObject);
+          return this.marketTicker;
+        }
+      }); 
+      
   }
 
   fetchHistory(): Observable<model.MarketHistory> {

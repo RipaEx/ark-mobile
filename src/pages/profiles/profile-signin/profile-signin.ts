@@ -123,8 +123,9 @@ export class ProfileSigninPage implements OnDestroy {
       const network = this.networks[data[1]];
       const networkName = lodash.capitalize(network.name);
       const isMainnet = network.type === NetworkType.Mainnet;
+      const networkLogo = network.logo;
 
-      result.push({ index: id, key: data[0], value: networkName, highlight: isMainnet });
+      result.push({ index: id, key: data[0], value: networkName, highlight: isMainnet, logo: networkLogo});
     }, []).value();
 
   }

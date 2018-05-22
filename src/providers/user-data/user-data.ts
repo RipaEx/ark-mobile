@@ -21,7 +21,7 @@ export class UserDataProvider {
 
   public profiles = {};
   public networks = {};
-
+  
   public currentProfile: Profile;
   public currentNetwork: Network;
   public currentWallet: Wallet;
@@ -263,8 +263,21 @@ export class UserDataProvider {
       });
   }
 
+  buildDefaultNetworks () {
+    var networks = constants.DEFAULT_NETWORKS;
+    var list = [];
+    Object.keys(networks).forEach(function (item) {
+      var network = new Network();
+      Object.assign(network, networks[item]);
+      var type = NetworkType[item.charAt(0).toUpperCase() + item.substr(1).toLowerCase()];
+      network.type = type;
+      list.push(network);
+    });
+    return list;
+  };
+
   loadNetworks() {
-    const defaults = Network.getAll();
+    const defaults = this.buildDefaultNetworks();
 
     return Observable.create((observer) => {
       // Return defaults networks from arkts

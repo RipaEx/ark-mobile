@@ -32,9 +32,9 @@ export const TOAST_HIDE_DELAY = 3000;
 export const TOAST_POSITION = 'bottom';
 
 // COIN MARKETCAP API
-export const API_MARKET_URL = '';
-export const API_MARKET_HISTORY_ENDPOINT = '';
-export const API_MARKET_TICKER_ENDPOINT = '';
+export const API_MARKET_URL = 'https://min-api.cryptocompare.com';
+export const API_MARKET_HISTORY_ENDPOINT = 'data/histoday?allData=true&fsym=';
+export const API_MARKET_TICKER_ENDPOINT = 'data/pricemultifull?fsyms=';
 
 // GENERIC
 export const VIBRATION_TIME_MS = 30;
@@ -49,3 +49,59 @@ export const PIN_ATTEMPTS_TIMEOUT_MILLISECONDS = 30 * 1000;
 export const PRIVACY_POLICY_URL = 'https://ripaex.io/PrivacyPolicy.txt';
 export const URI_QRCODE_SCHEME_PREFIX = 'ripa:';
 export const NUM_ACTIVE_DELEGATES = 51;
+
+// WALLETS
+export const DEFAULT_NETWORKS = {
+    ripaex: {
+      bip32: {
+        public: 0x03E25D7E,
+        private: 0x03E25944
+      },
+      name: 'ripaex',
+      nethash: 'bee1634649fc6a759e5fdb8f3c4bcb4b5189c1f2a6b48284a6445f3f09db844e',
+      token: 'XPX',
+      symbol: '₱',
+      version: 0x37,
+      explorer: 'https://explorer.ripaex.io',
+      wif: 0xaa, // Network prefix for wif generation
+      activePeer: {
+        ip: '54.37.235.26',
+        port: 5500
+      }
+    },
+    ark: {
+      bip32: {
+          private: 0x2bf4530,
+          public: 0x2bf4968,
+      },
+      name: 'ark',
+      nethash: '6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988',
+      token: 'ARK',
+      symbol: 'Ѧ',
+      version: 0x17,
+      explorer: 'https://explorer.ark.io',
+      wif: 0xaa,
+      activePeer: {
+          ip: 'node1.arknet.cloud',
+          port: 4001,
+      }
+    },
+    kapu: {
+      bip32: {
+        private: 0x2bf4530,
+        public: 0x2bf4968,
+      },
+      logo: 'https://www.kapu.one/assets/images/logo.png',
+      name: 'kapu',
+      nethash: '313ea34c8eb705f79e7bc298b788417ff3f7116c9596f5c9875e769ee2f4ede1',
+      token: 'KAPU',
+      symbol: 'ʞ',
+      version: 0x2D,
+      explorer: 'http://explorer.kapu.one',
+      wif: 0xaa,
+      activePeer: {
+        ip: '51.15.198.173',
+        port: 4600,
+      }
+    }
+};
