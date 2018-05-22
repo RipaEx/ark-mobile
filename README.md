@@ -1,4 +1,4 @@
-![Ripa Mobile](https://i.imgur.com/0BjkC9C.png)
+![Ripa Mobile](./banner_medium_mobile.jpg)
 
 [![Build Status](https://travis-ci.org/ArkEcosystem/ark-mobile.svg?branch=master)](https://travis-ci.org/ArkEcosystem/ark-mobile)
 
