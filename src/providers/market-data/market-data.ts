@@ -91,37 +91,41 @@ export class MarketDataProvider {
           this.storageProvider.set(constants.STORAGE_MARKET_TICKER, tickerObject);
           return this.marketTicker;
         } catch (e) {
-          const json = {"BTC":{"TYPE":"5","MARKET":"CCCAGG","FROMSYMBOL":currentNetwork.token,"TOSYMBOL":"BTC","FLAGS":"1","PRICE":0.000015,"LASTUPDATE":1522965612,"LASTVOLUME":0,"LASTVOLUMETO":0,"LASTTRADEID":"15229656120001","VOLUMEDAY":0,"VOLUMEDAYTO":0,"VOLUME24HOUR":0,"VOLUME24HOURTO":0,"OPENDAY":0.000015,"HIGHDAY":0.000015,"LOWDAY":0.000015,"OPEN24HOUR":0.000015,"HIGH24HOUR":0.000015,"LOW24HOUR":0.000015,"LASTMARKET":"NaN","CHANGE24HOUR":0,"CHANGEPCT24HOUR":0,"CHANGEDAY":0,"CHANGEPCTDAY":0,"SUPPLY":0,"MKTCAP":0,"TOTALVOLUME24H":0,"TOTALVOLUME24HTO":0}};
-          const tickerObject = {
-            symbol: json['BTC']['FROMSYMBOL'],
-            currencies: json,
-          };
-          this.marketTicker = new model.MarketTicker().deserialize(tickerObject);
-          this.storageProvider.set(constants.STORAGE_MARKET_TICKER, tickerObject);
-          return this.marketTicker;
+          
         }
       }); 
       
   }
 
   fetchHistory(): Observable<model.MarketHistory> {
-    const url = `${constants.API_MARKET_URL}/${constants.API_MARKET_HISTORY_ENDPOINT}`;
+  const currentNetwork = this.networkProvider.currentNetwork;
+    const url = `${constants.API_MARKET_URL}/${constants.API_MARKET_HISTORY_ENDPOINT}` + currentNetwork.token + '&tsym=';
     const myCurrencyCode = ((!this.settings || !this.settings.currency)
       ? this.settingsDataProvider.getDefaults().currency
       : this.settings.currency).toUpperCase();
+
     return this.http.get(url + 'BTC')
       .map((btcResponse) => btcResponse)
       .flatMap((btcResponse) => this.http.get(url + myCurrencyCode).map((currencyResponse) => {
-        const historyData = {
-          BTC: btcResponse['Data'],
-        };
-        historyData[myCurrencyCode] = currencyResponse['Data'];
-        const history = new model.MarketHistory().deserialize(historyData);
+        
+          if (btcResponse['Response'] === 'Error') {
+            
+          } 
 
-        this.marketHistory = history;
-        this.storageProvider.set(constants.STORAGE_MARKET_HISTORY, historyData);
-        this.onUpdateHistory$.next(history);
+          if (currencyResponse['Response'] === 'Error') {
+            
+          }
+          
+          const historyData = {
+            BTC: btcResponse['Data'],
+          };
+          historyData[myCurrencyCode] = currencyResponse['Data'];
+          const history = new model.MarketHistory().deserialize(historyData);
 
+          this.marketHistory = history;
+          this.storageProvider.set(constants.STORAGE_MARKET_HISTORY, historyData);
+          this.onUpdateHistory$.next(history);
+          
         return history;
       }));
   }
