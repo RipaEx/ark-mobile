@@ -30,6 +30,15 @@
           </ion-option>
         </ion-select>
       </ion-item>
+      <ion-item>
+        <ion-icon name="ios-book-outline" color="primary" item-start></ion-icon>
+        <ion-label>{{ 'SETTINGS_PAGE.WORDLIST_LANGUAGE' | translate }}</ion-label>
+        <ion-select [(ngModel)]="currentSettings.wordlistLanguage" (ngModelChange)="onUpdate()" cancelText="{{ 'CANCEL' | translate }}">
+          <ion-option *ngFor="let item of objectKeys(availableOptions?.wordlistLanguages)" [value]="item">
+            {{ availableOptions?.wordlistLanguages[item] }}
+          </ion-option>
+        </ion-select>
+      </ion-item>
     </ion-item-group>
 
     <ion-item-group>
@@ -37,6 +46,15 @@
       <button detail-push ion-item (click)="openChangePinPage()">
         <ion-icon name="ios-lock-outline" color="primary" item-start></ion-icon>
         {{ 'SETTINGS_PAGE.CHANGE_PIN' | translate }}
+      </button>
+      <ion-item ion-item>
+        <ion-icon name="ios-notifications-outline" color="primary" item-start></ion-icon>
+        <ion-label>{{ 'SETTINGS_PAGE.NOTIFICATIONS' | translate }}</ion-label>
+        <ion-toggle [(ngModel)]="currentSettings.notification" (ngModelChange)="onUpdate()"></ion-toggle>
+      </ion-item>
+      <button detail-push ion-item (click)="openManageNetworksPage()">
+        <ion-icon name="ios-wifi-outline" color="primary" item-start></ion-icon>
+        {{ 'CUSTOM_NETWORK.MANAGE_NETWORKS' | translate }}
       </button>
     </ion-item-group>
 
