@@ -9,7 +9,7 @@ exports.default = {
         public: 0x03E25D7E,
         private: 0x03E25944
       },
-      name: 'mainnet',
+      name: 'ripaex',
       nethash: 'bee1634649fc6a759e5fdb8f3c4bcb4b5189c1f2a6b48284a6445f3f09db844e',
       token: 'XPX',
       symbol: '₱',
@@ -17,16 +17,10 @@ exports.default = {
       explorer: 'https://explorer.ripaex.io',
       wif: 0xaa, // Network prefix for wif generation
       activePeer: {
-        ip: 'api.ripaex.io',
-        port: 80
+        ip: '54.37.235.26',
+        port: 5500
       },
-      peers: [
-        '51.15.85.181:5500',
-        '78.12.176.6:5500',
-        '54.37.235.26:5500',
-        '54.37.149.118:5500',
-        '51.15.220.208:5500'
-      ],
+      peers: [],
     },
     devnet: {
       bip32: {
@@ -55,5 +49,4 @@ exports.default = {
   },
 };
 //# sourceMappingURL=index.js.map
-console.log('Starting Ripa Customized');
 
