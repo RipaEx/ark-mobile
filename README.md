@@ -12,6 +12,7 @@ Ripa’s mobile wallet is a hybrid application (using the same codebase for Andr
 - [Google Play # coming soon
 - App Store # coming soon
 
+
 ## Features
 
 - Import your existing passphrase (import by QR Scanner or write/paste your passphrase).
