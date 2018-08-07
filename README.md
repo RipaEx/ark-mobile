@@ -9,7 +9,7 @@ Ripa’s mobile wallet is a hybrid application (using the same codebase for Andr
 
 ## Download
 
-- [Google Play # coming soon
+- [Google Play](https://play.google.com/store/apps/details?id=io.ripa.wallet.mobile)
 - App Store # coming soon
 
 
