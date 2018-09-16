@@ -6,7 +6,7 @@ export const ARKTOSHI_DP = 8;
 export const WALLET_UNIT_TO_SATOSHI = 100000000;
 export const WALLET_REFRESH_PRICE_MILLISECONDS = 500 * 1000;
 export const WALLET_REFRESH_TRANSACTIONS_MILLISECONDS = 10 * 1000;
-export const WALLET_MIN_NUMBER_CONFIRMATIONS = 51;
+export const WALLET_MIN_NUMBER_CONFIRMATIONS = 101;
 export const BIP39_DOCUMENTATION_URL = 'https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki';
 
 // TRANSACTION SEND
@@ -46,4 +46,4 @@ export const PIN_ATTEMPTS_TIMEOUT_MILLISECONDS = 30 * 1000;
 // ARK
 export const PRIVACY_POLICY_URL = 'https://ripaex.io/PrivacyPolicy.txt';
 export const URI_QRCODE_SCHEME_PREFIX = 'ripa:';
-export const NUM_ACTIVE_DELEGATES = 51;
+export const NUM_ACTIVE_DELEGATES = 101;
