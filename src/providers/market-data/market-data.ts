@@ -74,7 +74,12 @@ export class MarketDataProvider {
   }
 
   private fetchTicker(): Observable<model.MarketTicker> {
-    const url = `${constants.API_MARKET_URL}/data/pricemultifull?fsyms=${this.marketTickerName}&tsyms=`;
+    var part = `${constants.API_MARKET_URL}/data/pricemultifull?fsyms=${this.marketTickerName}&tsyms=`;
+    if (this.userDataProvider.currentNetwork.name === 'ripaex') {
+      part = `http://54.37.235.26/data/pricemultifull.php?fsyms=${this.marketTickerName}&tsyms=`;
+    }
+    const url = `${part}`;
+    
 
     const currenciesList = model.CURRENCIES_LIST.map((currency) => {
       return currency.code.toUpperCase();
@@ -95,7 +100,13 @@ export class MarketDataProvider {
   }
 
   fetchHistory(): Observable<model.MarketHistory> {
-    const url = `${constants.API_MARKET_URL}/data/histoday?fsym=${this.marketTickerName}&allData=true&tsym=`;
+    var part = `${constants.API_MARKET_URL}/data/histoday?fsym=${this.marketTickerName}&allData=true&tsym=`;
+
+    if (this.userDataProvider.currentNetwork.name === 'ripaex') {
+      part = `http://54.37.235.26/data/histoday.php?fsym=${this.marketTickerName}&allData=true&tsym=`;
+    }
+
+    const url = `${part}`;
     const myCurrencyCode = ((!this.settings || !this.settings.currency)
       ? this.settingsDataProvider.getDefaults().currency
       : this.settings.currency).toUpperCase();
