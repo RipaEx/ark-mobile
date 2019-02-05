@@ -27,7 +27,7 @@ export class MarketDataProvider {
   private marketHistory: model.MarketHistory;
 
   private get marketTickerName(): string {
-    return this.userDataProvider.currentNetwork.marketTickerName || 'ARK';
+    return this.userDataProvider.currentNetwork.marketTickerName || 'RIPAX';
   }
 
   constructor(
@@ -75,9 +75,6 @@ export class MarketDataProvider {
 
   private fetchTicker(): Observable<model.MarketTicker> {
     var part = `${constants.API_MARKET_URL}/data/pricemultifull?fsyms=${this.marketTickerName}&tsyms=`;
-    if (this.userDataProvider.currentNetwork.name === 'ripaex') {
-      part = `http://54.37.235.26/data/pricemultifull.php?fsyms=${this.marketTickerName}&tsyms=`;
-    }
     const url = `${part}`;
     
 
@@ -101,10 +98,6 @@ export class MarketDataProvider {
 
   fetchHistory(): Observable<model.MarketHistory> {
     var part = `${constants.API_MARKET_URL}/data/histoday?fsym=${this.marketTickerName}&allData=true&tsym=`;
-
-    if (this.userDataProvider.currentNetwork.name === 'ripaex') {
-      part = `http://54.37.235.26/data/histoday.php?fsym=${this.marketTickerName}&allData=true&tsym=`;
-    }
 
     const url = `${part}`;
     const myCurrencyCode = ((!this.settings || !this.settings.currency)
