@@ -9,7 +9,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding #content>
   <form #manageForm="ngForm">
     <ion-grid fixed>
       <ion-row nowrap>
@@ -89,7 +89,24 @@
             <ion-input type="text"
                        required
                        name="activePeerPort"
-                       [(ngModel)]="network.activePeer.port">
+                       [(ngModel)]="p2pPort"
+                       (ionChange)="updateP2PPort()">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row nowrap *ngIf="network.isV2">
+        <ion-col>
+          &nbsp;
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label stacked>{{ 'CUSTOM_NETWORK.API_SERVER_PORT' | translate }}</ion-label>
+            <ion-input type="text"
+                       required
+                       name="apiPort"
+                       [(ngModel)]="apiPort"
+                       (ionChange)="updateApiPort()">
             </ion-input>
           </ion-item>
         </ion-col>
@@ -121,7 +138,7 @@
   </form>
 </ion-content>
 
-<ion-footer no-border no-shadow>
+<ion-footer no-border no-shadow [keyboard-attach]="content">
   <ion-grid>
     <ion-row align-items-center>
       <ion-col>

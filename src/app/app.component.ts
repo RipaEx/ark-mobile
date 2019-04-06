@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, Renderer2, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Platform, Config, Nav, MenuController, AlertController, App, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -11,7 +11,7 @@ import { UserDataProvider } from '@providers/user-data/user-data';
 import { SettingsDataProvider } from '@providers/settings-data/settings-data';
 import { ArkApiProvider } from '@providers/ark-api/ark-api';
 import { ToastProvider } from '@providers/toast/toast';
-import { LocalNotificationsProvider } from '@providers/local-notifications/local-notifications';
+// import { LocalNotificationsProvider } from '@providers/local-notifications/local-notifications';
 
 import { TranslateService } from '@ngx-translate/core';
 
@@ -49,7 +49,7 @@ export class MyApp implements OnInit, OnDestroy {
     private arkApiProvider: ArkApiProvider,
     private settingsDataProvider: SettingsDataProvider,
     private toastProvider: ToastProvider,
-    private localNotificationsProvider: LocalNotificationsProvider,
+    // private localNotificationsProvider: LocalNotificationsProvider,
     private menuCtrl: MenuController,
     private alertCtrl: AlertController,
     private config: Config,
@@ -58,7 +58,9 @@ export class MyApp implements OnInit, OnDestroy {
     private app: App,
     private ionicNetwork: Network,
     private splashScreen: SplashScreen,
-    private events: Events
+    private events: Events,
+    public element: ElementRef,
+    private renderer: Renderer2
   ) {
 
     platform.ready().then(() => {
@@ -84,10 +86,14 @@ export class MyApp implements OnInit, OnDestroy {
         this.hideNav = false;
       });
 
-      this.settingsDataProvider.onUpdate$.subscribe(() => this.initTranslate());
+      this.settingsDataProvider.onUpdate$.subscribe(() => {
+        this.initTranslate();
+        this.initTheme();
+      });
     });
 
     this.initTranslate();
+    this.initTheme();
   }
 
   setBackButton() {
@@ -127,11 +133,10 @@ export class MyApp implements OnInit, OnDestroy {
     this.config.set('android', 'autoFocusAssist', 'delay');
 
     if (this.platform.is('cordova')) {
-      this.localNotificationsProvider.init();
+      // this.localNotificationsProvider.init();
 
       if (this.platform.is('ios')) {
         this.statusBar.styleDefault();
-        this.keyboard.disableScroll(false);
       }
 
       if (this.platform.is('android')) {
@@ -159,7 +164,6 @@ export class MyApp implements OnInit, OnDestroy {
         }
       });
 
-      this.keyboard.hideKeyboardAccessoryBar(true);
       this.keyboard.onKeyboardShow().subscribe(() => document.body.classList.add('keyboard-is-open'));
       this.keyboard.onKeyboardHide().subscribe(() => document.body.classList.remove('keyboard-is-open'));
 
@@ -178,6 +182,16 @@ export class MyApp implements OnInit, OnDestroy {
         this.exitText = translations['EXIT_APP_TEXT'];
         this.signOutText = translations['SIGN_OUT_PROFILE_TEXT'];
       });
+    });
+  }
+
+  initTheme() {
+    this.settingsDataProvider.settings.subscribe(settings => {
+      if (settings.darkMode) {
+        this.renderer.addClass(this.element.nativeElement.parentNode, 'dark-theme');
+      } else {
+        this.renderer.removeClass(this.element.nativeElement.parentNode, 'dark-theme');
+      }
     });
   }
 
@@ -266,5 +280,4 @@ export class MyApp implements OnInit, OnDestroy {
     this.unsubscriber$.complete();
     this.authProvider.logout();
   }
-
 }

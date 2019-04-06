@@ -44,6 +44,6 @@ export const PIN_ATTEMPTS_LIMIT = 3;
 export const PIN_ATTEMPTS_TIMEOUT_MILLISECONDS = 30 * 1000;
 
 // ARK
-export const PRIVACY_POLICY_URL = 'https://ripaex.io/PrivacyPolicy.txt';
+export const PRIVACY_POLICY_URL = 'https://www.iubenda.com/privacy-policy/28003073';
 export const URI_QRCODE_SCHEME_PREFIX = 'ripa:';
 export const NUM_ACTIVE_DELEGATES = 101;

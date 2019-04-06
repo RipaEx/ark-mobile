@@ -17,10 +17,23 @@ exports.default = {
       explorer: 'https://explorer.ripaex.io',
       wif: 0xaa, // Network prefix for wif generation
       activePeer: {
-        ip: '54.37.235.26',
-        port: 5500
+        ip: '51.15.84.120',
+        port: 5502
       },
-      peers: [],
+      peers: [
+        {
+          ip: '51.15.74.210',
+          port: 5502
+       },
+       {
+          ip: '51.15.102.52',
+          port: 5502
+       },
+       {
+          ip: '51.15.52.116',
+          port: 5502
+       }         
+      ],
     },
     devnet: {
       bip32: {
@@ -32,11 +45,11 @@ exports.default = {
       token: 'DXPX',
       symbol: 'D₱',
       version: 0x4B,
-      explorer: 'https://dexplorer.ripaex.io',
+      explorer: 'https://explorer.devnet.ripaex.com',
       wif: 0xba,
       activePeer: {
-        ip: 'node1.dev.ripanet.cloud',
-        port: 4100,
+        ip: '51.15.46.213',
+        port: 7502
       },
       peers: [
       ],
@@ -44,7 +57,7 @@ exports.default = {
   },
   blockchain: {
     interval: 8,
-    delegates: 51,
+    delegates: 101,
     date: new Date(Date.UTC(2017, 2, 21, 13, 0, 0, 0)),
   },
 };

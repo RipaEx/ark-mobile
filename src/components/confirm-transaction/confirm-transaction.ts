@@ -15,6 +15,7 @@ export class ConfirmTransactionComponent {
 
   @Input('wallet') wallet: Wallet;
 
+  @Output('onClosed') onClosed: EventEmitter<string> = new EventEmitter();
   @Output('onError') onError: EventEmitter<string> = new EventEmitter();
   @Output('onConfirm') onConfirm: EventEmitter<Transaction> = new EventEmitter();
 
@@ -26,19 +27,25 @@ export class ConfirmTransactionComponent {
   ) { }
 
   open(transaction: any, keys: WalletKeys, addressCheckResult?: AddressCheckResult) {
-    transaction = new Transaction(this.wallet.address).deserialize(transaction);
+    transaction = new Transaction(this.wallet.address, this.arkApiProvider.network).deserialize(transaction);
 
     this.arkApiProvider.createTransaction(transaction, keys.key, keys.secondKey, keys.secondPassphrase)
       .subscribe((tx) => {
         const modal = this.modalCtrl.create('ConfirmTransactionModal', {
           transaction: tx,
           addressCheckResult: addressCheckResult
-        }, { cssClass: 'inset-modal-send', enableBackdropDismiss: true });
+        }, { enableBackdropDismiss: true });
 
         modal.onDidDismiss((result) => {
-          if (lodash.isUndefined(result)) { return; }
+          if (lodash.isUndefined(result)) {
+            return this.onClosed.emit();
+          }
 
-          if (!result.status) { return this.presentWrongModal(result); }
+          if (!result.status) {
+            this.onClosed.emit();
+
+            return this.presentWrongModal(result);
+          }
 
           this.onConfirm.emit(tx);
 
@@ -70,7 +77,7 @@ export class ConfirmTransactionComponent {
   presentWrongModal(response) {
     const responseModal = this.modalCtrl.create('TransactionResponsePage', {
       response
-    }, { cssClass: 'inset-modal-small' });
+    });
 
     responseModal.present();
   }
