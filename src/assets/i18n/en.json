@@ -94,7 +94,7 @@
     "FAST_EASY": "Fast and Easy",
     "GET_STARTED": "Get Started",
     "SECURITY": "Security",
-    "TEXT_1": "We provide all the tools you need to manage your ARK tokens, anytime, anywhere, worldwide!",
+    "TEXT_1": "We provide all the tools you need to manage your XPX tokens, anytime, anywhere, worldwide!",
     "TEXT_2": "All your sensitive data is securely stored using PBKDF2 algorithm and AES-256 encryption protected by your PIN Code",
     "TEXT_3": "Swipe between profiles and wallets, check your balances, send and receive funds and much more",
     "WELCOME": "Welcome Aboard"
@@ -102,7 +102,7 @@
   "SIGN_IN_PAGE": {
     "ARK_WALLET": "RIPA Wallet",
     "CREATE_PROFILE": "Create a profile",
-    "SLOGAN": "Welcome to the RIPA World"
+    "SLOGAN": "Welcome to the RipaEx World"
   },
   "SIGN_OUT_PROFILE_TEXT": "Sign out of Profile?",
   "MARKETS_PAGE": {
